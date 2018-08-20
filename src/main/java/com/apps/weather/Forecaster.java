@@ -16,17 +16,11 @@ public class Forecaster {
     private Weather currentWeather;
     private Map<Weather, List<Period>> periods = Maps.newEnumMap(Weather.class);
     private Period currentPeriod;
-    private long currentDay;
 
     public Forecaster(SolarSystem solarSystem, List<Predictor> predictors) {
         this.solarSystem = solarSystem;
         this.predictors = predictors;
         this.initPrediction();
-        this.currentDay = 0;
-    }
-
-    public void addPredictor(Predictor predictor) {
-        this.predictors.add(predictor);
     }
 
     private void initPrediction() {
@@ -51,7 +45,6 @@ public class Forecaster {
         final Weather newWeather = getWeather();
         this.updatePeriod(newWeather, dayNumber);
         this.currentWeather = newWeather;
-        this.currentDay = dayNumber;
         return this.currentWeather;
     }
 

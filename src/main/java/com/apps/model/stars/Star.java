@@ -1,4 +1,3 @@
 package com.apps.model.stars;
 
-public class Star {
-}
+public class Star {}

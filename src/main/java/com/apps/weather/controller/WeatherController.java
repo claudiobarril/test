@@ -1,14 +1,12 @@
 package com.apps.weather.controller;
 
+import com.apps.weather.Weather;
 import com.apps.weather.controller.response.ResponseError;
 import com.apps.weather.controller.response.ResponseOk;
+import com.apps.weather.controller.response.ResponsePrediction;
 import com.apps.weather.controller.response.ResponseWeather;
 import com.apps.weather.service.WeatherService;
-import com.apps.weather.Weather;
 import org.apache.commons.lang3.StringUtils;
-import spark.Request;
-import spark.Response;
-import spark.Route;
 
 import static spark.Spark.delete;
 import static spark.Spark.get;
@@ -54,7 +52,7 @@ public class WeatherController {
                 return new ResponseError("Parametro dias debe ser numerico");
             }
             response.status(200);
-            return weatherService.predict(days);
+            return new ResponsePrediction(weatherService.predict(days));
         }, new WeatherResponseTransformer());
 
         delete("/reset", (request, response) -> {

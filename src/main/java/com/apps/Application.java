@@ -21,14 +21,4 @@ public class Application {
         ctx.registerShutdownHook();
     }
 
-    private static void printSystemLocations(SolarSystem solarSystem) {
-        List<Planet> planets = solarSystem.getPlanets();
-        printPlanetLocation(planets.get(0));
-        printPlanetLocation(planets.get(1));
-        printPlanetLocation(planets.get(2));
-    }
-
-    private static void printPlanetLocation(Planet planet) {
-        System.out.println("Angle: " + planet.getAngle() + " X: " + planet.getX() + " Y: " + planet.getY());
-    }
 }
