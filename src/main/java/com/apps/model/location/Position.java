@@ -1,8 +1,5 @@
 package com.apps.model.location;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 public class Position {
 
     private int x;
@@ -60,7 +57,6 @@ public class Position {
     public Incline getIncline(Position position) {
         final double incline = (this.getY() - position.getY()) / (this.getX() - position.getX());
         return new Incline(incline);
-        //return roundedIncline == Double.NEGATIVE_INFINITY ? Double.POSITIVE_INFINITY : roundedIncline;
     }
 
     public boolean isAlignWithSun(Position position) {

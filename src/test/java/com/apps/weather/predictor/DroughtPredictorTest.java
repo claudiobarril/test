@@ -1,12 +1,7 @@
 package com.apps.weather.predictor;
 
-import com.apps.model.location.Position;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 import org.junit.Test;
-
-import java.util.List;
-import java.util.Map;
 
 import static com.apps.util.PositionBuilder.buildPositions;
 import static org.junit.Assert.assertFalse;

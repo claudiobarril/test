@@ -10,12 +10,15 @@ public class Incline {
 
     public Incline(double value) {
         this.value = value;
-        this.positive = value >= 0;
+        this.positive = value >= 0 || this.value == Double.NEGATIVE_INFINITY;
     }
 
     public Double getRoundedValue() {
-        Double roundedValue = BigDecimal.valueOf(this.value).setScale(0, RoundingMode.HALF_UP).doubleValue();
-        return roundedValue == Double.NEGATIVE_INFINITY ? Double.POSITIVE_INFINITY : roundedValue;
+        if (this.value == Double.NEGATIVE_INFINITY || this.value == Double.POSITIVE_INFINITY) {
+            return Double.POSITIVE_INFINITY;
+        } else {
+            return BigDecimal.valueOf(this.value).setScale(0, RoundingMode.HALF_UP).doubleValue();
+        }
     }
 
     public boolean isPositive() {

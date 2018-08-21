@@ -1,6 +1,7 @@
 package com.apps.weather.predictor;
 
 import com.apps.model.location.Position;
+import com.apps.weather.predictor.RainPredictor;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 
@@ -43,16 +44,16 @@ public class RainPredictorTest {
         assertFalse(predictor.satisfyPrediction(positions));
         positions.clear();
 
-        positions.add(new Position(d(2), d(-1)));
-        positions.add(new Position(d(-3), d(1)));
+        positions.add(new Position(d(3), d(-1)));
+        positions.add(new Position(d(-2), d(1)));
         positions.add(new Position(d(5), d(5)));
-        assertTrue(predictor.satisfyPrediction(positions));
+        assertFalse(predictor.satisfyPrediction(positions));
         positions.clear();
 
         positions.add(new Position(d(5), d(-10)));
         positions.add(new Position(d(-2), d(-2)));
         positions.add(new Position(2.5, d(3)));
-        assertTrue(predictor.satisfyPrediction(positions));
+        assertFalse(predictor.satisfyPrediction(positions));
     }
 
     private double d(int value) {
