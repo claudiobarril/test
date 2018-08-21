@@ -57,12 +57,10 @@ public class Position {
         this.angle = angle;
     }
 
-    public double getIncline(Position position) {
+    public Incline getIncline(Position position) {
         final double incline = (this.getY() - position.getY()) / (this.getX() - position.getX());
-        Double incline2 = BigDecimal.valueOf(incline)
-                .setScale(0, RoundingMode.HALF_UP)
-                .doubleValue();
-        return incline2 == Double.NEGATIVE_INFINITY ? Double.POSITIVE_INFINITY : incline2;
+        return new Incline(incline);
+        //return roundedIncline == Double.NEGATIVE_INFINITY ? Double.POSITIVE_INFINITY : roundedIncline;
     }
 
     public boolean isAlignWithSun(Position position) {
