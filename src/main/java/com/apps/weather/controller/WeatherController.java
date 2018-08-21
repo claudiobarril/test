@@ -38,7 +38,7 @@ public class WeatherController {
                 return new ResponseError("Prediccion para dia solicitado no pudo ser encontrada");
             }
             response.status(200);
-            return new ResponseWeather(Integer.valueOf(day), weather);
+            return new ResponseWeather(Integer.valueOf(day), weather.getName());
         }, new WeatherResponseTransformer());
 
         post("/predecir", (request, response) -> {
