@@ -32,6 +32,7 @@ public class WeatherService {
     }
 
     public Map<Weather, List<Period>> predict(String days) {
+        forecaster.clearPeriods();
         LongStream.rangeClosed(1, Long.valueOf(days)).forEach(i -> {
             solarSystem.advance();
             Weather weather = forecaster.predict(i);

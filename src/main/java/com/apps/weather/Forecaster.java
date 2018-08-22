@@ -71,4 +71,8 @@ public class Forecaster {
     public Map<Weather, List<Period>> getPeriods() {
         return periods;
     }
+
+    public void clearPeriods() {
+        this.periods.clear();
+    }
 }
