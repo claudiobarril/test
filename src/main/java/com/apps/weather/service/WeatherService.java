@@ -31,13 +31,18 @@ public class WeatherService {
         return store.get(day);
     }
 
-    public Map<Weather, List<Period>> predict(String days) {
-        forecaster.clearPeriods();
+    public Map<Weather, List<Period>> predict(String days) throws IOException {
+        this.store.clear();
+        this.forecaster.clearPeriods();
         LongStream.rangeClosed(1, Long.valueOf(days)).forEach(i -> {
-            solarSystem.advance();
-            Weather weather = forecaster.predict(i);
-            store.put(String.valueOf(i), weather);
+            this.solarSystem.advance();
+            Weather weather = this.forecaster.predict(i);
+            this.store.put(String.valueOf(i), weather);
         });
+        return forecaster.getPeriods();
+    }
+
+    public Map<Weather, List<Period>> getAllPredictions() {
         return forecaster.getPeriods();
     }
 

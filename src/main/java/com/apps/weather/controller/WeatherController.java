@@ -1,5 +1,6 @@
 package com.apps.weather.controller;
 
+import com.apps.weather.Period;
 import com.apps.weather.Weather;
 import com.apps.weather.controller.response.ResponseError;
 import com.apps.weather.controller.response.ResponseOk;
@@ -7,6 +8,9 @@ import com.apps.weather.controller.response.ResponsePrediction;
 import com.apps.weather.controller.response.ResponseWeather;
 import com.apps.weather.service.WeatherService;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
+import java.util.Map;
 
 import static spark.Spark.delete;
 import static spark.Spark.get;
@@ -53,6 +57,16 @@ public class WeatherController {
             }
             response.status(200);
             return new ResponsePrediction(weatherService.predict(days));
+        }, new WeatherResponseTransformer());
+
+        get("/predicciones", (request, response) -> {
+            final Map<Weather, List<Period>> allPredictions = weatherService.getAllPredictions();
+            response.status(200);
+            if (allPredictions.isEmpty()) {
+                return new ResponseError("Aun no se han realizado predcciones");
+            } else {
+                return new ResponsePrediction(allPredictions);
+            }
         }, new WeatherResponseTransformer());
 
         delete("/reset", (request, response) -> {

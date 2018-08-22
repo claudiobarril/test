@@ -1,14 +1,17 @@
 package com.apps.weather.database;
 
 import com.apps.weather.Weather;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang3.SerializationUtils;
 import org.iq80.leveldb.DB;
+import org.iq80.leveldb.DBIterator;
 import org.iq80.leveldb.Options;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
-import static org.iq80.leveldb.impl.Iq80DBFactory.factory;
+import static org.fusesource.leveldbjni.JniDBFactory.factory;
 
 public class WeatherStore {
     private final Options options;
@@ -29,6 +32,19 @@ public class WeatherStore {
 
     public void put(String day, Weather weather) {
         this.levelDBStore.put(day.getBytes(), SerializationUtils.serialize(weather));
+    }
+
+    public Map<String, Weather> getAll() {
+        Map<String, Weather> all = Maps.newHashMap();
+        DBIterator iterator = levelDBStore.iterator();
+        iterator.seekToFirst();
+        while (iterator.hasNext()){
+            byte[] key = iterator.peekNext().getKey();
+            byte[] value = iterator.peekNext().getValue();
+            all.put(new String(key), SerializationUtils.deserialize(value));
+            iterator.next();
+        }
+        return all;
     }
 
     public void clear() throws IOException {
